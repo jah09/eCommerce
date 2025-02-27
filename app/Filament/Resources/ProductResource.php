@@ -34,7 +34,6 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-
                 Group::make()->schema([
                     Section::make('Product information')->schema([
                         TextInput::make('name')
@@ -80,12 +79,6 @@ class ProductResource extends Resource
                             ->prefix('$'),
                     ])->columns(2),
 
-                    // Section::make('Stock')->schema([
-                    //     Toggle::make('in_stock')
-                    //         ->required(),
-                    //     Toggle::make('on_sale')
-                    //         ->required(),
-                    // ])
                     Section::make('Associations')->schema([
                         Select::make('category_id')
                             ->required()
@@ -132,17 +125,9 @@ class ProductResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('brand.name')
                     ->sortable(),
-
                 Tables\Columns\TextColumn::make('price')
                     ->money('PHP')
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('name')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('slug')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('price')
-                //     ->money()
-                //     ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_featured')
