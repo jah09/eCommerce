@@ -17,4 +17,11 @@ class EditOrder extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        //Filament expects a route key (like 'index', 'create', etc.), not the actual route path.
+        //So '/' in OrderResource::getPages() is the route key, not the actual path.
+        return $this->getResource()::getUrl('index');
+    }
 }

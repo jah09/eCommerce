@@ -11,14 +11,20 @@ use Filament\Forms\Set;
 use Filament\Forms\Form;
 use App\Models\OrderItem;
 use Filament\Tables\Table;
+use Illuminate\Support\Number;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Columns\SelectColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ToggleButtons;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -116,7 +122,7 @@ class OrderResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->distinct()
-                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems() //Disable an product if already selected
                                     ->required()
                                     ->reactive()
                                     ->afterStateUpdated(function ($state, Set $set) {
@@ -139,16 +145,36 @@ class OrderResource extends Resource
                                 TextInput::make('unit_amount')
                                     ->numeric()
                                     ->disabled()
+                                    ->dehydrated() //Always make it sure that this method is after the disable method
                                     ->columnSpan(3)
                                     ->required(),
 
                                 TextInput::make('total_amount')
                                     ->numeric()
                                     ->disabled()
+                                    ->dehydrated() //Always make it sure that this method is after the disable method
                                     ->required()
                                     ->columnSpan(3),
 
                             ])->columns(12),
+
+                        Placeholder::make('grand_total_placeholder')
+                            ->label('Grand Total')
+                            ->content(function (Get $get, Set $set) {
+                                $total = 0;
+                                if (!$repeaters = $get('items')) { // Fixes syntax error in assignment
+                                    return $total;
+                                }
+
+                                foreach ($repeaters as $key => $repeater) {
+                                    $total += $get("items.{$key}.total_amount"); // Corrected string interpolation
+                                }
+                                $set('grand_total', $total);
+                                return Number::currency($total, 'PHP');
+                            }),
+
+                        Hidden::make('grand_total')
+                            ->default(0)
                     ])
                 ])->columnSpanFull()
             ]);
@@ -158,14 +184,64 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('user.name')
+                    ->label('Customer')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('grand_total')
+                    ->numeric()
+                    ->sortable()
+                    ->money('PHP'),
+
+                TextColumn::make('payment_method')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('payment_status')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('currency')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('shipping_method')
+                    ->searchable()
+                    ->sortable(),
+
+
+                SelectColumn::make('status')
+                    ->options([
+                        'new' => 'New',
+                        'processing' => 'Processing',
+                        'delivered' => 'Delivered',
+                        'shipped' => 'Shipped',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('created_at')
+                    ->dateTime() 
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
