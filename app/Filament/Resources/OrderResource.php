@@ -223,7 +223,7 @@ class OrderResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->dateTime() 
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -255,6 +255,18 @@ class OrderResource extends Resource
         return [
             //
         ];
+    }
+
+    //Display a count on the side bar
+    public static function getNavigationBadge(): ?string
+    {
+        // return Order::count(); or 
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string
+    {
+        return static::getModel()::count() > 10 ? 'danger' : 'success';
     }
 
     public static function getPages(): array
