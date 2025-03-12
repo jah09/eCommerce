@@ -27,6 +27,10 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
+    // protected static ?string $recordTitleAttribute  = 'name'; //if solo ra ang e search
+
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -68,16 +72,17 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable(),
 
-                 
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 //Action to take on the table row, if its Edit, Delete, or View Action
-                ActionGroup::make([Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ViewAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make(),
                 ])
             ])
             ->bulkActions([
@@ -90,7 +95,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-             OrdersRelationManager::class,
+            OrdersRelationManager::class,
         ];
     }
 
@@ -100,6 +105,15 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'), //Defines the base route for listing users under the Filament panel.
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+        ];
+    }
+
+    //To search more fields
+    public static function getGloballySearchableAttributes(): array
+    {
+        return [
+            'name',
+            'email',
         ];
     }
 }
