@@ -11,9 +11,11 @@
 </head>
 
 <body class="bg-slate-200 dark:lg-state-700">
+    @livewire('partials.navbar')
     <main>
         {{ $slot }}
     </main>
+    {{-- @livewire('partials.footer') --}}
     @livewireScripts
 </body>
 
