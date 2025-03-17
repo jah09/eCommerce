@@ -18,7 +18,8 @@
                             <tr>
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        <img class="h-16 w-16 mr-4" src="https://via.placeholder.com/150"
+                                        <img class="h-16 w-16 mr-4"
+                                            src="https://images.pexels.com/photos/31145710/pexels-photo-31145710/free-photo-of-black-and-white-blossoming-branch-in-spring.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
                                             alt="Product image">
                                         <span class="font-semibold">Product name</span>
                                     </div>
@@ -61,7 +62,8 @@
                         <span class="font-semibold">Total</span>
                         <span class="font-semibold">$21.98</span>
                     </div>
-                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full"
+                        href="/checkout">Checkout</button>
                 </div>
             </div>
         </div>
