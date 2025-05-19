@@ -1,353 +1,86 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-    <section class="py-10 bg-gray-50 font-poppins dark:bg-gray-800 rounded-lg">
-        <div class="px-4 py-4 mx-auto max-w-7xl lg:py-6 md:px-6">
-            <div class="flex flex-wrap mb-24 -mx-3">
-                <div class="w-full pr-2 lg:w-1/4 lg:block">
-                    <div class="p-4 mb-5 bg-white border border-gray-200 dark:border-gray-900 dark:bg-gray-900">
-                        <h2 class="text-2xl font-bold dark:text-gray-400"> Categories</h2>
-                        <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                        <ul>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400 ">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg">Smartphones</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400 ">
-                                    <input type="checkbox" class="w-4 h-4 mr-2 ">
-                                    <span class="text-lg">Laptops</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg">Smartwatches</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg">Television</span>
-                                </label>
-                            </li>
-                        </ul>
+    <section class="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
+        <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full mb-8 md:w-1/2 md:mb-0"
+                    x-data="{ mainImage: '{{url('storage', $product->images[0])}}'}">
+                    <div class="sticky top-0 z-50 overflow-hidden ">
+                        <div class="relative mb-6 lg:mb-10 lg:h-2/4 ">
+                            <img x-bind:src="mainImage" alt="" class="object-cover w-full lg:h-full ">
+                        </div>
+                        <div class="flex-wrap hidden md:flex ">
+                            @foreach ($product->images as $image)
+                            <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='{{url('storage', $image)}}'">
+                                <img src="{{url('storage', $image)}}" alt="{{$product->name}}"
+                                    class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
+                            </div>
+                            @endforeach
 
-                    </div>
-                    <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                        <h2 class="text-2xl font-bold dark:text-gray-400">Brand</h2>
-                        <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                        <ul>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">Apple</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">Samsung</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">Nothing</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">One Plus</span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                        <h2 class="text-2xl font-bold dark:text-gray-400">Product Status</h2>
-                        <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                        <ul>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">In Stock</span>
-                                </label>
-                            </li>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">On Sale</span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
 
-                    <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                        <h2 class="text-2xl font-bold dark:text-gray-400">Price</h2>
-                        <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                        <div>
-                            <input type="range"
-                                class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="500000"
-                                value="100000" step="100000">
-                            <div class="flex justify-between ">
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; 1000</span>
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; 500000</span>
+
+                        </div>
+                        <div class="px-6 pb-6 mt-6 border-t border-gray-300 dark:border-gray-400 ">
+                            <div class="flex flex-wrap items-center mt-6">
+                                <span class="mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="w-4 h-4 text-gray-700 dark:text-gray-400 bi bi-truck"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <h2 class="text-lg font-bold text-gray-700 dark:text-gray-400">Free Shipping</h2>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full px-3 lg:w-3/4">
-                    <div class="px-3 mb-4">
-                        <div
-                            class="items-center justify-between hidden px-3 py-2 bg-gray-100 md:flex dark:bg-gray-900 ">
-                            <div class="flex items-center justify-between">
-                                <select name="" id=""
-                                    class="block w-40 text-base bg-gray-100 cursor-pointer dark:text-gray-400 dark:bg-gray-900">
-                                    <option value="">Sort by latest</option>
-                                    <option value="">Sort by Price</option>
-                                </select>
+                <div class="w-full px-4 md:w-1/2 ">
+                    <div class="lg:pl-20">
+                        <div class="mb-8 ">
+                            <h2 class="max-w-xl mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
+                                {{$product->name}}
+                            </h2>
+                            <p class="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
+                                <span>
+                                    ${{$product->price}}
+                                </span>
+                                <span {{$product->name}}
+                                    class="text-base font-normal text-gray-500 line-through
+                                    dark:text-gray-400">${{$product->on_sale}}</span>
+                            </p>
+                            <p class="max-w-md text-gray-700 dark:text-gray-400">
+                                {{-- {{ !! Str::markdown($product->description) !! }} --}}
+                                {{
+                                $product->description
+                                }}
+                            </p>
+                        </div>
+                        <div class="w-32 mb-8 ">
+                            <label for=""
+                                class="w-full pb-1 text-xl font-semibold text-gray-700 border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">Quantity</label>
+                            <div class="relative flex flex-row w-full h-10 mt-6 bg-transparent rounded-lg">
+                                <button
+                                    class="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-400">
+                                    <span class="m-auto text-2xl font-thin">-</span>
+                                </button>
+                                <input type="number" readonly
+                                    class="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-300 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-md hover:text-black"
+                                    placeholder="1">
+                                <button
+                                    class="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-400">
+                                    <span class="m-auto text-2xl font-thin">+</span>
+                                </button>
                             </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4">
+                            <button
+                                class="w-full p-4 bg-blue-500 rounded-md lg:w-2/5 dark:text-gray-200 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-700">
+                                Add to cart</button>
                         </div>
                     </div>
-                    <div class="flex flex-wrap items-center ">
-
-                        <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
-                            <div class="border border-gray-300 dark:border-gray-700">
-                                <div class="relative bg-gray-200">
-                                    <a href="/products/product_one" class="">
-                                        <img src="https://i.postimg.cc/hj6h6Vwv/pexels-artem-beliaikin-2292919.jpg"
-                                            alt="" class="object-cover w-full h-56 mx-auto ">
-                                    </a>
-                                </div>
-                                <div class="p-3 ">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <h3 class="text-xl font-medium dark:text-gray-400">
-                                            Product name
-                                        </h3>
-                                    </div>
-                                    <p class="text-lg ">
-                                        <span class="text-green-600 dark:text-green-600">$800.00</span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">
-
-                                    <a href="#"
-                                        class="text-gray-500 flex items-center space-x-2 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
-                                            <path
-                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                            </path>
-                                        </svg><span>Add to Cart</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
-                            <div class="border border-gray-300 dark:border-gray-700">
-                                <div class="relative bg-gray-200">
-                                    <a href="#" class="">
-                                        <img src="https://i.postimg.cc/hj6h6Vwv/pexels-artem-beliaikin-2292919.jpg"
-                                            alt="" class="object-cover w-full h-56 mx-auto ">
-                                    </a>
-                                </div>
-                                <div class="p-3 ">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <h3 class="text-xl font-medium dark:text-gray-400">
-                                            Product name
-                                        </h3>
-                                    </div>
-                                    <p class="text-lg ">
-                                        <span class="text-green-600 dark:text-green-600">$800.00</span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">
-
-                                    <a href="#"
-                                        class="text-gray-500 flex items-center space-x-2 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
-                                            <path
-                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                            </path>
-                                        </svg><span>Add to Cart</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
-                            <div class="border border-gray-300 dark:border-gray-700">
-                                <div class="relative bg-gray-200">
-                                    <a href="#" class="">
-                                        <img src="https://i.postimg.cc/hj6h6Vwv/pexels-artem-beliaikin-2292919.jpg"
-                                            alt="" class="object-cover w-full h-56 mx-auto ">
-                                    </a>
-                                </div>
-                                <div class="p-3 ">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <h3 class="text-xl font-medium dark:text-gray-400">
-                                            Product name
-                                        </h3>
-                                    </div>
-                                    <p class="text-lg ">
-                                        <span class="text-green-600 dark:text-green-600">$800.00</span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">
-
-                                    <a href="#"
-                                        class="text-gray-500 flex items-center space-x-2 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
-                                            <path
-                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                            </path>
-                                        </svg><span>Add to Cart</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
-                            <div class="border border-gray-300 dark:border-gray-700">
-                                <div class="relative bg-gray-200">
-                                    <a href="#" class="">
-                                        <img src="https://i.postimg.cc/hj6h6Vwv/pexels-artem-beliaikin-2292919.jpg"
-                                            alt="" class="object-cover w-full h-56 mx-auto ">
-                                    </a>
-                                </div>
-                                <div class="p-3 ">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <h3 class="text-xl font-medium dark:text-gray-400">
-                                            Product name
-                                        </h3>
-                                    </div>
-                                    <p class="text-lg ">
-                                        <span class="text-green-600 dark:text-green-600">$800.00</span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">
-
-                                    <a href="#"
-                                        class="text-gray-500 flex items-center space-x-2 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
-                                            <path
-                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                            </path>
-                                        </svg><span>Add to Cart</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
-                            <div class="border border-gray-300 dark:border-gray-700">
-                                <div class="relative bg-gray-200">
-                                    <a href="#" class="">
-                                        <img src="https://i.postimg.cc/hj6h6Vwv/pexels-artem-beliaikin-2292919.jpg"
-                                            alt="" class="object-cover w-full h-56 mx-auto ">
-                                    </a>
-                                </div>
-                                <div class="p-3 ">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <h3 class="text-xl font-medium dark:text-gray-400">
-                                            Product name
-                                        </h3>
-                                    </div>
-                                    <p class="text-lg ">
-                                        <span class="text-green-600 dark:text-green-600">$800.00</span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">
-
-                                    <a href="#"
-                                        class="text-gray-500 flex items-center space-x-2 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
-                                            <path
-                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                            </path>
-                                        </svg><span>Add to Cart</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
-                            <div class="border border-gray-300 dark:border-gray-700">
-                                <div class="relative bg-gray-200">
-                                    <a href="#" class="">
-                                        <img src="https://i.postimg.cc/hj6h6Vwv/pexels-artem-beliaikin-2292919.jpg"
-                                            alt="" class="object-cover w-full h-56 mx-auto ">
-                                    </a>
-                                </div>
-                                <div class="p-3 ">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <h3 class="text-xl font-medium dark:text-gray-400">
-                                            Product name
-                                        </h3>
-                                    </div>
-                                    <p class="text-lg ">
-                                        <span class="text-green-600 dark:text-green-600">$800.00</span>
-                                    </p>
-                                </div>
-                                <div class="flex justify-center p-4 border-t border-gray-300 dark:border-gray-700">
-
-                                    <a href="#"
-                                        class="text-gray-500 flex items-center space-x-2 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
-                                            <path
-                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                            </path>
-                                        </svg><span>Add to Cart</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- pagination start -->
-                    <div class="flex justify-end mt-6">
-                        <nav aria-label="page-navigation">
-                            <ul class="flex list-style-none">
-                                <li class="page-item disabled ">
-                                    <a href="#"
-                                        class="relative block pointer-events-none px-3 py-1.5 mr-3 text-base text-gray-700 transition-all duration-300  rounded-md dark:text-gray-400 hover:text-gray-100 hover:bg-blue-600">Previous
-                                    </a>
-                                </li>
-                                <li class="page-item ">
-                                    <a href="#"
-                                        class="relative block px-3 py-1.5 mr-3 text-base hover:text-blue-700 transition-all duration-300 hover:bg-blue-200 dark:hover:text-gray-400 dark:hover:bg-gray-700 rounded-md text-gray-100 bg-blue-400">1
-                                    </a>
-                                </li>
-                                <li class="page-item ">
-                                    <a href="#"
-                                        class="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3  ">2
-                                    </a>
-                                </li>
-                                <li class="page-item ">
-                                    <a href="#"
-                                        class="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3 ">3
-                                    </a>
-                                </li>
-                                <li class="page-item ">
-                                    <a href="#"
-                                        class="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md ">Next
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- pagination end -->
                 </div>
             </div>
         </div>
     </section>
-
 </div>
