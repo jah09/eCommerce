@@ -50,7 +50,10 @@
                                     dark:text-gray-400">${{$product->on_sale}}</span>
                             </p>
                             <p class="max-w-md text-gray-700 dark:text-gray-400">
-                                {{ !! Str::markdown($product->description) !! }}
+                                {{-- {{ !! Str::markdown($product->description) !! }} --}}
+                                {{
+                                $product->description
+                                }}
                             </p>
                         </div>
                         <div class="w-32 mb-8 ">
