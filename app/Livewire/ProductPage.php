@@ -23,7 +23,12 @@ class ProductPage extends Component
 
         $productQuery = Product::query()->where('is_active', 1);
         if (!empty($this->selected_categories)) {
-            $productQuery->whereIn('category_id', $this->selected_categories);
+            $categories = is_array($this->selected_categories)
+                ? $this->selected_categories
+                : [$this->selected_categories];
+            // Cast all values to int
+            $categories = array_map('intval', $categories);
+            $productQuery->whereIn('category_id', $categories);
         }
 
         if (!empty($this->selected_brands)) {
