@@ -15,12 +15,21 @@ class ProductPage extends Component
     use \Livewire\WithPagination;
     #[Url]
     public array $selected_categories = [];
+
+    #[Url]
     public array $selected_brands = [];
+
+    #[Url]
+    public $featured;
+
+
+    #[Url]
+    public $on_sale;
 
     public function render()
     {
         // dd($this->selected_categories);
-
+        // dd($this->selected_brands);
         $productQuery = Product::query()->where('is_active', 1);
         if (!empty($this->selected_categories)) {
             $categories = is_array($this->selected_categories)
@@ -31,8 +40,31 @@ class ProductPage extends Component
             $productQuery->whereIn('category_id', $categories);
         }
 
+        // if (!empty($this->selected_brands)) {
+        //     $productQuery->whereIn('brand_id', $this->selected_brands);
+        // }
         if (!empty($this->selected_brands)) {
-            $productQuery->whereIn('brand_id', $this->selected_brands);
+            $brands = is_array($this->selected_brands)
+                ? $this->selected_brands
+                : [$this->selected_brands];
+            // Cast all values to int
+            $brands = array_map('intval', $brands);
+            $productQuery->whereIn('brand_id', $brands);
+        }
+
+
+        //Query the feature products
+        if($this->featured) {
+            $productQuery->where('is_featured', 1);
+        } else {
+            $productQuery->where('is_featured', 0);
+        }
+        
+        //Query the on sale products
+        if($this->on_sale) {
+            $productQuery->where('on_sale', 1);
+        } else {
+            $productQuery->where('on_sale', 0);
         }
 
         return view('livewire.product-page', [
