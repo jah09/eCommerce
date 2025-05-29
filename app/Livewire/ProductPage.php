@@ -22,9 +22,11 @@ class ProductPage extends Component
     #[Url]
     public $featured;
 
-
     #[Url]
     public $on_sale;
+
+    #[Url]
+    public $price_range = 300000;
 
     public function render()
     {
@@ -65,6 +67,11 @@ class ProductPage extends Component
             $productQuery->where('on_sale', 1);
         } else {
             $productQuery->where('on_sale', 0);
+        }
+
+        //Query the price range
+        if($this->price_range) {
+            $productQuery->whereBetween('price', [0, $this->price_range]);
         }
 
         return view('livewire.product-page', [
